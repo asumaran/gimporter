@@ -1,0 +1,26 @@
+var
+  gulp = require('gulp'),
+  async = require('async'),
+  cheerio = require('gulp-cheerio'),
+  gimporter = require('./lib/gimporter'),
+  Q = require('q');
+
+gulp.task('import', function () {
+  return gulp
+    .src('xml/**/*.*')
+    .pipe(cheerio({
+      parserOptions: {
+        xmlMode: true
+      },
+      run: function ($, file, done) {
+        gimporter.processFile($, file)
+          .then(function(){
+            done();
+          });
+      }
+    }));
+});
+
+gulp.task('default', ['import'], function() {
+  process.exit();
+});

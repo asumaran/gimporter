@@ -10,7 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "async": "^1.5.2",
+    "dotenv": "^2.0.0",
+    "extend": "^3.0.0",
     "gulp": "^3.9.0",
-    "gulp-cheerio": "^0.6.2"
+    "gulp-cheerio": "^0.6.2",
+    "mysql": "^2.10.2",
+    "q": "^1.4.1"
   }
 }
