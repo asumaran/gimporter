@@ -13,6 +13,7 @@ gulp.task('import', function () {
         xmlMode: true
       },
       run: function ($, file, done) {
+        console.log('Processing: ' + file.path);
         gimporter.processFile($, file)
           .then(function(){
             done();
