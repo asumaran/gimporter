@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "async": "^1.5.2",
     "dotenv": "^2.0.0",
+    "elasticsearch": "^10.1.2",
     "extend": "^3.0.0",
     "gulp": "^3.9.0",
     "gulp-cheerio": "^0.6.2",

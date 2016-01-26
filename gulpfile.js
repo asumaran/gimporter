@@ -1,8 +1,8 @@
 var
   gulp = require('gulp'),
-  async = require('async'),
   cheerio = require('gulp-cheerio'),
   gimporter = require('./lib/gimporter'),
+  indexer = require('./lib/indexer'),
   Q = require('q');
 
 gulp.task('import', function () {
@@ -20,6 +20,10 @@ gulp.task('import', function () {
           });
       }
     }));
+});
+
+gulp.task('index', function() {
+  indexer.perform();
 });
 
 gulp.task('default', ['import'], function() {
