@@ -7,7 +7,7 @@ var
 
 gulp.task('import', function () {
   return gulp
-    .src('xml/**/*.*')
+    .src(['xml/**/*.*','!xml/**/{POPUP,POPUP/**}'])
     .pipe(cheerio({
       parserOptions: {
         xmlMode: true
