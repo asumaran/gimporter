@@ -180,6 +180,12 @@
         },
         "date": {
           "type": "date"
+        },
+        "suggest": {
+          "type": "completion",
+          "analyzer": "ley",
+          "search_analyzer": "ley",
+          "payloads": true
         }
       }
     },
@@ -201,6 +207,12 @@
         },
         "date": {
           "type": "date"
+        },
+        "suggest": {
+          "type": "completion",
+          "analyzer": "ley",
+          "search_analyzer": "ley",
+          "payloads": true
         }
       }
     }
