@@ -1,8 +1,9 @@
 var
   gulp = require('gulp'),
-  async = require('async'),
   cheerio = require('gulp-cheerio'),
   gimporter = require('./lib/gimporter'),
+  indexer = require('./lib/indexer'),
+  elastic = require('./lib/elastic'),
   Q = require('q');
 
 gulp.task('import', function () {
@@ -21,6 +22,16 @@ gulp.task('import', function () {
       }
     }));
 });
+
+gulp.task('process_template', function() {
+  elastic.setTemplate();
+});
+
+gulp.task('index', function() {
+  indexer.perform();
+});
+
+gulp.task('run', ['import', 'process_template', 'index']);
 
 gulp.task('default', ['import'], function() {
   process.exit();
