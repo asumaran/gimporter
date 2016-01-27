@@ -1,0 +1,208 @@
+{
+  "template": "documento*",
+  "settings": {
+    "number_of_shards": 5,
+    "number_of_replicas": 1,
+    "index": {
+      "analysis": {
+        "filter": {
+          "mylength": {
+            "type": "length",
+            "min": 2
+          },
+          "mylength1": {
+            "type": "length",
+            "min": 3
+          },
+          "mylengthagg": {
+            "type": "length",
+            "min": 2,
+            "max": 22
+          },
+          "mystop": {
+            "type": "stop"
+          },
+          "spanish_stop": {
+            "type": "stop",
+            "stopwords_path": "/etc/elasticsearch/elasticsearch/spanish.txt"
+          },
+          "agregaciones_stop": {
+            "type": "stop",
+            "stopwords_path": "/etc/elasticsearch/elasticsearch/agregaciones.txt"
+          },
+          "light_spanish": {
+            "type": "stemmer",
+            "language": "light_spanish"
+          },
+          "smash_filter_number": {
+            "type": "pattern_replace",
+            "pattern": "\\b[\\d]+\\b",
+            "replacement": ""
+          },
+          "smash_filter_url_http": {
+            "type": "pattern_replace",
+            "pattern": "https?:\\/\\/[a-zA-Z\\-_0-9.]+(?:\\/[a-zA-Z\\-_0-9.\\?\\&\\=\\%]+)*\\/?",
+            "replacement": ""
+          },
+          "smash_filter_url_www_com": {
+            "type": "pattern_replace",
+            "pattern": "(www){1}[a-zA-Z\\-_0-9.]+(?:\\/[a-zA-Z\\-_0-9.]+)*\\/?",
+            "replacement": ""
+          },
+          "smash_hashtags": {
+            "type": "pattern_replace",
+            "pattern": "#[a-z0-9ñ_]+\\b",
+            "replacement": ""
+          },
+          "smash_userids": {
+            "type": "pattern_replace",
+            "pattern": "@[a-z0-9ñ_]{17,}\\b",
+            "replacement": ""
+          },
+          "smash_email": {
+            "type": "pattern_replace",
+            "pattern": "[a-z0-9_-]{1,}@[a-z0-9.-_]{1,}\\b",
+            "replacement": ""
+          },
+          "smash_cosasraras": {
+            "type": "pattern_replace",
+            "pattern": "^[0-9]{2,}[a-z0-9ñ.-_]{1,}\\b",
+            "replacement": ""
+          },
+          "smash_cosasraras1": {
+            "type": "pattern_replace",
+            "pattern": "^[0-9][a-z0-9ñ.-_]{2,}\\b",
+            "replacement": ""
+          },
+          "smash_cosasraras2": {
+            "type": "pattern_replace",
+            "pattern": "^aa[a-z0-9ñ.-_]+\\b",
+            "replacement": ""
+          },
+          "smash_cosasraras3": {
+            "type": "pattern_replace",
+            "pattern": "(^[0-9][a-fh-z]\\b|^[a-z][0-9]\\b|^[a-z][0-9][0-9a-z]{1,}\\b)",
+            "replacement": ""
+          },
+          "smash_cosasraras4": {
+            "type": "pattern_replace",
+            "pattern": "(si|sa|za|ja)\\1+",
+            "replacement": "$1"
+          },
+          "smash_cosasraras5": {
+            "type": "pattern_replace",
+            "pattern": "(c|e|i|l|n|p|r|s|t|u|z)\\1+",
+            "replacement": "$1$1"
+          },
+          "smash_cosasraras6": {
+            "type": "pattern_replace",
+            "pattern": "(a|b|d|[f-h]|i|[j-k]|m|o|q|[v-y])\\1+",
+            "replacement": "$1"
+          },
+          "smash_cosasraras7": {
+            "type": "pattern_replace",
+            "pattern": "(c|i|n|p|r|u|z)\\1+$",
+            "replacement": "$1"
+          },
+          "smash_other": {
+            "type": "pattern_replace",
+            "pattern": "[^a-z0-9ñ ]",
+            "replacement": " "
+          },
+          "smash_otherchars": {
+            "type": "pattern_replace",
+            "pattern": "[^a-z0-9ñ@#_ ]",
+            "replacement": " "
+          },
+          "smash_singleletterdash": {
+            "type": "pattern_replace",
+            "pattern": "\\b([a-z0-9]{1})(-)",
+            "replacement": "$1"
+          },
+          "smash_otherchars0": {
+            "type": "pattern_replace",
+            "pattern": "[\u0027\u2010.]",
+            "replacement": ""
+          },
+          "smash_otherchars1": {
+            "type": "pattern_replace",
+            "pattern": "[^a-z0-9ñ_ ]",
+            "replacement": " "
+          },
+          "smash_spaces": {
+            "type": "pattern_replace",
+            "pattern": "[ ]+",
+            "replacement": " "
+          },
+          "sinonimos": {
+            "type": "synonym",
+            "synonyms_path": "/etc/elasticsearch/elasticsearch/synonyms.txt"
+          },
+          "urltoparts": {
+            "type": "pattern_capture",
+            "preserve_original": false,
+            "patterns": ["([a-z0-9Çñ_@#]+)"]
+          }
+        },
+        "char_filter": {
+          "strip_acentos": {
+            "type": "mapping",
+            "mappings": ["\u0028=> *", "\u0029=> *", ",=> *", "Ñ=>ñ", "ñ=>ñ", "Ç=>ç", "ç=>ç", "á=>a", "é=>e", "í=>i", "ó=>o", "ú=>u", "à=>a", "è=>e", "ì=>i", "ò=>o", "ù=>u", "â=>a", "ê=>e", "î=>i", "ô=>o", "û=>u", "ã=>a", "ẽ=>e", "ĩ=>i", "õ=>o", "ũ=>u", "ä=>a", "ë=>e", "ï=>i", "ö=>o", "ü=>u", "ā=>a", "ē=>e", "ī=>i", "ō=>o", "ū=>u", "ă=>a", "ĕ=>e", "ĭ=>i", "ŏ=>o", "ŭ=>u", "å=>a", "ů=>u", "Á=>a", "É=>e", "Í=>i", "Ó=>o", "Ú=>u", "À=>a", "È=>e", "Ì=>i", "Ò=>o", "Ù=>u", "Â=>a", "Ê=>e", "Î=>i", "Ô=>o", "Û=>u", "Ã=>a", "Ẽ=>e", "Ĩ=>i", "Õ=>o", "Ũ=>u", "Ä=>a", "Ë=>e", "Ï=>i", "Ö=>o", "Ü=>u", "Ā=>a", "Ē=>e", "Ī=>i", "Ō=>o", "Ū=>u", "Ă=>a", "Ĕ=>e", "Ĭ=>i", "Ŏ=>o", "Ŭ=>u", "Å=>a", "Ů=>u", "´=>", "`=>", "\u0027=>"]
+          }
+        },
+        "analyzer": {
+          "ley": {
+            "type": "custom",
+            "tokenizer": "whitespace",
+            "filter": ["lowercase", "smash_singleletterdash", "urltoparts", "smash_otherchars", "smash_cosasraras4", "smash_cosasraras5", "smash_cosasraras6", "smash_cosasraras7", "smash_spaces", "sinonimos", "trim", "spanish_stop", "stop", "mylength"],
+            "char_filter": ["html_strip", "strip_acentos"]
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "legislacion": {
+      "_source": {
+        "enabled": true
+      },
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "title": {
+          "type": "string",
+          "analyzer": "ley"
+        },
+        "content": {
+          "type": "string",
+          "analyzer": "ley"
+        },
+        "date": {
+          "type": "date"
+        }
+      }
+    },
+    "jurisprudencia": {
+      "_source": {
+        "enabled": true
+      },
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "title": {
+          "type": "string",
+          "analyzer": "ley"
+        },
+        "content": {
+          "type": "string",
+          "analyzer": "ley"
+        },
+        "date": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
