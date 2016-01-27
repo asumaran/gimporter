@@ -31,6 +31,10 @@ gulp.task('index', function() {
   indexer.perform();
 });
 
+gulp.task('reindex', function () {
+  indexer.reindex();
+});
+
 gulp.task('run', ['import', 'process_template', 'index']);
 
 gulp.task('default', ['import'], function() {
