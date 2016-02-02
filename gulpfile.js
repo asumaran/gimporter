@@ -4,6 +4,8 @@ var gimporter = require('./lib/gimporter');
 var indexer = require('./lib/indexer');
 var elastic = require('./lib/elastic');
 var eslint = require('gulp-eslint');
+var gutil = require('gulp-util');
+var chalk = require('chalk');
 
 gulp.task('import', function () {
   return gulp
@@ -37,13 +39,24 @@ gulp.task('lint', function () {
   return gulp.src(['**/*.js', '!node_modules/**'])
     .pipe(eslint())
     .pipe(eslint.format())
+    .pipe(eslint.results(function (result) {
+      if (!result.errorCount) {
+        gutil.log(chalk.green('No errors found'));
+      }
+    }))
     .pipe(eslint.failAfterError());
 });
 
 gulp.task('lint-watch', function () {
   var lintAndPrint = eslint();
 
-  lintAndPrint.pipe(eslint.formatEach());
+  lintAndPrint
+    .pipe(eslint.formatEach())
+    .pipe(eslint.result(function (result) {
+      if (!result.errorCount) {
+        gutil.log(chalk.green('No errors found'));
+      }
+    }));
 
   return gulp.watch('./lib/**/*.js', function (event) {
     if (event.type !== 'deleted') {
