@@ -181,11 +181,16 @@
         "date": {
           "type": "date"
         },
-        "suggest": {
+        "legislacion_suggest": {
           "type": "completion",
+          "payloads": true,
           "analyzer": "ley",
-          "search_analyzer": "ley",
-          "payloads": true
+          "context": {
+            "doctype": {
+              "type": "category",
+              "default": "legislacion"
+            }
+          }
         }
       }
     },
@@ -208,11 +213,16 @@
         "date": {
           "type": "date"
         },
-        "suggest": {
+        "jurisprudencia_suggest": {
           "type": "completion",
           "analyzer": "ley",
-          "search_analyzer": "ley",
-          "payloads": true
+          "payloads": true,
+          "context": {
+            "doctype": {
+              "type": "category",
+              "default": "jurisprudencia"
+            }
+          }
         }
       }
     }
