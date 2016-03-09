@@ -111,7 +111,7 @@
           },
           "smash_otherchars": {
             "type": "pattern_replace",
-            "pattern": "[^a-z0-9ñ@#_ ]",
+            "pattern": "[^a-z0-9ñ@#_\\- ]",
             "replacement": " "
           },
           "smash_singleletterdash": {
