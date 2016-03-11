@@ -111,7 +111,7 @@
           },
           "smash_otherchars": {
             "type": "pattern_replace",
-            "pattern": "[^a-z0-9ñ@#_ ]",
+            "pattern": "[^a-z0-9ñ@#_\\- ]",
             "replacement": " "
           },
           "smash_singleletterdash": {
@@ -132,8 +132,8 @@
           "my_word_delimiter" : {
                 "type" : "word_delimiter",
                 "preserve_original": "true",
-                "generate_number_parts": "false",
-                "generate_word_parts": "false"
+                "generate_number_parts": "true",
+                "generate_word_parts": "true"
             },
           "smash_spaces": {
             "type": "pattern_replace",
@@ -160,13 +160,7 @@
           "ley": {
             "type": "custom",
             "tokenizer": "whitespace",
-            "filter": ["lowercase", "smash_singleletterdash", "urltoparts", "smash_otherchars", "smash_cosasraras4", "smash_cosasraras5", "smash_cosasraras6", "smash_cosasraras7", "smash_spaces", "sinonimos", "trim", "spanish_stop", "stop", "mylength"],
-            "char_filter": ["html_strip", "strip_acentos"]
-          },
-          "exact_match_law": {
-            "type": "custom",
-            "tokenizer": "whitespace",
-            "filter": ["lowercase","my_word_delimiter","smash_otherchars", "smash_cosasraras4", "smash_cosasraras5", "smash_cosasraras6", "smash_cosasraras7", "smash_spaces", "sinonimos", "trim", "spanish_stop", "stop", "mylength"],
+            "filter": ["lowercase", "trim","my_word_delimiter"],
             "char_filter": ["html_strip", "strip_acentos"]
           }
         }
